@@ -38,7 +38,7 @@ const Sidebar: React.FC = () => {
 
   let menuItems: MenuItem[] = [
     {
-      name: "Eduhance",
+      name: "Logo",
       iconName: <AiOutlineMenu/>,
     },
     {
