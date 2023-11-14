@@ -144,6 +144,26 @@ body {
   font-size: 32px;
 }
 
+
+
+/* sub Menu */
+
+
+.submenu-item{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+}
+
+a:-webkit-any-link {
+  text-decoration: none;
+  color: black;
+
+}
+.submenu-description{
+  font-weight: 600;
+}
 @media screen and (max-height: 550px) {
   .boxicon {
     margin-left: 1.2rem;

@@ -11,6 +11,9 @@ import {
 import { MdExplore, MdNotes, MdSettings } from "react-icons/md";
 import { RiLogoutBoxRFill } from "react-icons/ri";
 import { Link, NavLink } from "react-router-dom";
+import { GoDotFill } from "react-icons/go";
+import { AiFillCodepenCircle } from "react-icons/ai";
+import { AiFillCompass } from "react-icons/ai";
 
 interface MenuItem {
   name: string;
@@ -69,14 +72,14 @@ const Sidebar: React.FC = () => {
       route: "/resources",
       submenu: [
         {
-          name: "Sub Item 1",
-          iconName: <MdNotes />,
+          name: "SubItem_1",
+          iconName: <AiFillCodepenCircle />,
           type: "solid",
           route: "/subitem1",
         },
         {
-          name: "Sub Item 2",
-          iconName: <MdNotes />,
+          name: "SubItem_2",
+          iconName: <AiFillCompass />,
           type: "solid",
           route: "/subitem2",
         },
@@ -125,35 +128,25 @@ const Sidebar: React.FC = () => {
         let middle = !(index === 0 || index === menuItems.length - 1);
 
         return (
-          <NavLink
-            to={item.route || "#"}
-            onClick={(e) => !item.route && e.preventDefault()}
-          >
-            <div
-              className={`boxicon-container ${
-                expanded && "expanded-boxicon-container"
-              }`}
-              onMouseEnter={() => {
-                if (middle) {
-                  setHovered(index);
-                }
-              }}
-              onMouseLeave={() => {
-                if (middle) {
-                  setHovered(null);
-                }
-              }}
-              onClick={() => {
-                if (middle) {
-                  setActive(index);
-                }
-                if (index === 0) {
-                  setExpanded(!expanded);
-                }
-              }}
-              key={index}
+          <>
+            <NavLink
+              to={item.route || "#"}
+              onClick={(e) => !item.route && e.preventDefault()}
             >
-              <BoxIcon
+              <div
+                className={`boxicon-container ${
+                  expanded && "expanded-boxicon-container"
+                }`}
+                onMouseEnter={() => {
+                  if (middle) {
+                    setHovered(index);
+                  }
+                }}
+                onMouseLeave={() => {
+                  if (middle) {
+                    setHovered(null);
+                  }
+                }}
                 onClick={() => {
                   if (middle) {
                     setActive(index);
@@ -162,29 +155,67 @@ const Sidebar: React.FC = () => {
                     setExpanded(!expanded);
                   }
                 }}
-                className={`${middle && "boxicon"} ${
-                  !middle && "first-and-last-trash-fix"
-                } ${active === index && "active"}`}
-                size={changeSmall ? "sm" : "md"}
-                name={item.iconName}
-                color={
-                  hovered === index || active === index ? "white" : item.color
-                }
-                animation={active === index && animate ? "tada" : ""}
-                rotate={item.rotate}
-              />
-        
-              <p
-                className={`description ${expanded && "show-description"} ${
-                  active === index && "active-description"
-                }`}
+                key={index}
               >
-                {item.name}
-              </p>
-            </div>
-          </NavLink>
+                <BoxIcon
+                  onClick={() => {
+                    if (middle) {
+                      setActive(index);
+                    }
+                    if (index === 0) {
+                      setExpanded(!expanded);
+                    }
+                  }}
+                  className={`${middle && "boxicon"} ${
+                    !middle && "first-and-last-trash-fix"
+                  } ${active === index && "active"}`}
+                  size={changeSmall ? "sm" : "md"}
+                  name={item.iconName}
+                  color={
+                    hovered === index || active === index ? "white" : item.color
+                  }
+                  animation={active === index && animate ? "tada" : ""}
+                  rotate={item.rotate}
+                />
+
+                <p
+                  className={`description ${expanded && "show-description"} ${
+                    active === index && "active-description"
+                  }`}
+                >
+                  {item.name}
+                </p>
+              </div>
+            </NavLink>
+
+            {item.submenu &&
+              item.submenu.map((subitem, subIndex) => (
+                <NavLink
+                  to={subitem.route || "#"}
+                  onClick={(e) => !subitem.route && e.preventDefault()}
+                >
+                  <div className="submenu-item" key={subIndex}>
+                    <BoxIcon
+                      onClick={() => {
+                        if (middle) {
+                          setActive(index);
+                        }
+                        if (index === 0) {
+                          setExpanded(!expanded);
+                        }
+                      }}
+                      name={subitem.iconName}
+                      size={changeSmall ? "sm" : "md"}
+                    />
+                    {/* Show the name only when expanded */}
+                    {expanded && (
+                      <p className="submenu-description">{subitem.name}</p>
+                    )}
+                  </div>
+                </NavLink>
+              ))}
+          </>
         );
-        
       })}
     </div>
   );
