@@ -3,7 +3,7 @@ import './Settings.css'
 
 function Settings() {
   return (
-    <div>Settings</div>
+    <div className='settings'>Settings</div>
   )
 }
 

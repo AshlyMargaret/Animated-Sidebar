@@ -1,23 +1,25 @@
-
 // Sidebar.tsx
-import React, { useState, useEffect } from 'react';
-import './Sidebar.css';
-import BoxIcon from '../box-icon'; // Adjust the path based on your project structure
-import { AiOutlineMenu ,AiFillHome,AiFillMail ,AiFillStar} from "react-icons/ai";
-import { MdExplore,MdNotes,MdSettings} from "react-icons/md";
+import React, { useState, useEffect } from "react";
+import "./Sidebar.css";
+import BoxIcon from "../box-icon"; // Adjust the path based on your project structure
+import {
+  AiOutlineMenu,
+  AiFillHome,
+  AiFillMail,
+  AiFillStar,
+} from "react-icons/ai";
+import { MdExplore, MdNotes, MdSettings } from "react-icons/md";
 import { RiLogoutBoxRFill } from "react-icons/ri";
-
-
-
-
+import { Link, NavLink } from "react-router-dom";
 
 interface MenuItem {
-    name: string;
-    iconName: any;
-    type?: string;
-    color?: string;
-    rotate?: string;
-  }
+  name: string;
+  iconName: any;
+  type?: string;
+  color?: string;
+  rotate?: string;
+  route?: string; // Add route property to each MenuItem
+}
 
 const Sidebar: React.FC = () => {
   const useMediaQuery = (query: string) => {
@@ -29,8 +31,8 @@ const Sidebar: React.FC = () => {
         setMatches(media.matches);
       }
       const listener = () => setMatches(media.matches);
-      window.addEventListener('resize', listener);
-      return () => window.removeEventListener('resize', listener);
+      window.addEventListener("resize", listener);
+      return () => window.removeEventListener("resize", listener);
     }, [matches, query]);
 
     return matches;
@@ -39,52 +41,60 @@ const Sidebar: React.FC = () => {
   let menuItems: MenuItem[] = [
     {
       name: "Logo",
-      iconName: <AiOutlineMenu/>,
+      iconName: <AiOutlineMenu />,
     },
     {
       name: "Home",
-      iconName: <AiFillHome/>,
+      iconName: <AiFillHome />,
       type: "solid",
+      route:"/home"
+      
     },
     {
       name: "Explore",
-      iconName: <MdExplore/>,
+      iconName: <MdExplore />,
       type: "solid",
+      route:"/explore"
+     
     },
     {
       name: "Messages",
-      iconName: <AiFillMail/>,
+      iconName: <AiFillMail />,
       type: "solid",
+      route:"/messages"
     },
     {
       name: "Resources",
-      iconName: <MdNotes/>,
+      iconName: <MdNotes />,
       type: "solid",
+      route:"/resources"
     },
     {
       name: "Starred",
-      iconName: <AiFillStar/>,
+      iconName: <AiFillStar />,
       type: "solid",
+      route:"/starred"
     },
     {
       name: "Settings",
-      iconName: <MdSettings/>,
+      iconName: <MdSettings />,
       type: "solid",
+      route:"/settings"
     },
     {
       name: "Log Out",
-      iconName: <RiLogoutBoxRFill/>,
+      iconName: <RiLogoutBoxRFill />,
       color: "red",
       rotate: "180",
+      route:"/logout"
     },
   ];
-
 
   const [hovered, setHovered] = useState<number | null>(null);
   const [active, setActive] = useState(1);
   const [animate, setAnimate] = useState(false);
   const [expanded, setExpanded] = useState(false);
-  const changeSmall = useMediaQuery('(max-height: 550px)');
+  const changeSmall = useMediaQuery("(max-height: 550px)");
   let delay = 1;
 
   useEffect(() => {
@@ -97,14 +107,14 @@ const Sidebar: React.FC = () => {
   }, [active, delay]);
 
   return (
-    <div className={`sidebar ${expanded && 'expanded'}`}>
+    <div className={`sidebar ${expanded && "expanded"}`}>
       {menuItems.map((item, index) => {
         let middle = !(index === 0 || index === menuItems.length - 1);
 
         return (
           <div
             className={`boxicon-container ${
-              expanded && 'expanded-boxicon-container'
+              expanded && "expanded-boxicon-container"
             }`}
             onMouseEnter={() => {
               if (middle) {
@@ -126,24 +136,32 @@ const Sidebar: React.FC = () => {
             }}
             key={index}
           >
+           
             <BoxIcon
-              className={`${middle && 'boxicon'}
-                      ${!middle && 'first-and-last-trash-fix'}
-                      ${active === index && 'active'}`}
-              size={changeSmall ? 'sm' : 'md'}
+              className={`${middle && "boxicon"}
+                      ${!middle && "first-and-last-trash-fix"}
+                      ${active === index && "active"}`}
+              size={changeSmall ? "sm" : "md"}
               name={item.iconName}
-              color={hovered === index || active === index ? 'white' : item.color}
-              animation={active === index && animate ? 'tada' : ''}
+              color={
+                hovered === index || active === index ? "white" : item.color
+              }
+              animation={active === index && animate ? "tada" : ""}
               rotate={item.rotate}
             />
-            <p
-              className={`description 
-            ${expanded && 'show-description'}
-            ${active === index && 'active-description'}`}
-            >
-              {item.name}
-            </p>
-          </div>
+
+            <NavLink to={item.route ?? ''}  >
+              <p
+                className={`description 
+            ${expanded && "show-description"}
+            ${active === index && "active-description"}`}
+              >
+                {item.name}
+              </p>
+            </NavLink>
+            </div>
+         
+         
         );
       })}
     </div>

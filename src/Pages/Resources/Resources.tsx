@@ -3,7 +3,7 @@ import './Resources.css'
 
 function Resources() {
   return (
-    <div>Resources</div>
+    <div className='resources'>Resources</div>
   )
 }
 

@@ -2,7 +2,7 @@
 import './starred.css'
 function Starred() {
   return (
-    <div>Starred</div>
+    <div className='starred'>Starred</div>
   )
 }
 

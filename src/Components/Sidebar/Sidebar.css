@@ -54,6 +54,7 @@ body {
 
 .active {
   background-color: red;
+  background-color: #373737;
 }
 
 .active::before {
