@@ -19,6 +19,7 @@ interface MenuItem {
   color?: string;
   rotate?: string;
   route?: string; // Add route property to each MenuItem
+  submenu?: MenuItem[];
 }
 
 const Sidebar: React.FC = () => {
@@ -47,46 +48,58 @@ const Sidebar: React.FC = () => {
       name: "Home",
       iconName: <AiFillHome />,
       type: "solid",
-      route:"/home"
-      
+      route: "/home",
     },
     {
       name: "Explore",
       iconName: <MdExplore />,
       type: "solid",
-      route:"/explore"
-     
+      route: "/explore",
     },
     {
       name: "Messages",
       iconName: <AiFillMail />,
       type: "solid",
-      route:"/messages"
+      route: "/messages",
     },
     {
       name: "Resources",
       iconName: <MdNotes />,
       type: "solid",
-      route:"/resources"
+      route: "/resources",
+      submenu: [
+        {
+          name: "Sub Item 1",
+          iconName: <MdNotes />,
+          type: "solid",
+          route: "/subitem1",
+        },
+        {
+          name: "Sub Item 2",
+          iconName: <MdNotes />,
+          type: "solid",
+          route: "/subitem2",
+        },
+      ],
     },
     {
       name: "Starred",
       iconName: <AiFillStar />,
       type: "solid",
-      route:"/starred"
+      route: "/starred",
     },
     {
       name: "Settings",
       iconName: <MdSettings />,
       type: "solid",
-      route:"/settings"
+      route: "/settings",
     },
     {
       name: "Log Out",
       iconName: <RiLogoutBoxRFill />,
       color: "red",
       rotate: "180",
-      route:"/logout"
+      route: "/logout",
     },
   ];
 
@@ -136,7 +149,6 @@ const Sidebar: React.FC = () => {
             }}
             key={index}
           >
-           
             <BoxIcon
               className={`${middle && "boxicon"}
                       ${!middle && "first-and-last-trash-fix"}
@@ -150,18 +162,19 @@ const Sidebar: React.FC = () => {
               rotate={item.rotate}
             />
 
-            <NavLink to={item.route ?? ''}  >
+            <NavLink
+              to={item.route || "#"}
+              onClick={(e) => !item.route && e.preventDefault()}
+            >
               <p
-                className={`description 
-            ${expanded && "show-description"}
-            ${active === index && "active-description"}`}
+                className={`description ${expanded && "show-description"} ${
+                  active === index && "active-description"
+                }`}
               >
                 {item.name}
               </p>
             </NavLink>
-            </div>
-         
-         
+          </div>
         );
       })}
     </div>
