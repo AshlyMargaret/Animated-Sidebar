@@ -125,47 +125,55 @@ const Sidebar: React.FC = () => {
         let middle = !(index === 0 || index === menuItems.length - 1);
 
         return (
-          <div
-            className={`boxicon-container ${
-              expanded && "expanded-boxicon-container"
-            }`}
-            onMouseEnter={() => {
-              if (middle) {
-                setHovered(index);
-              }
-            }}
-            onMouseLeave={() => {
-              if (middle) {
-                setHovered(null);
-              }
-            }}
-            onClick={() => {
-              if (middle) {
-                setActive(index);
-              }
-              if (index === 0) {
-                setExpanded(!expanded);
-              }
-            }}
-            key={index}
+          <NavLink
+            to={item.route || "#"}
+            onClick={(e) => !item.route && e.preventDefault()}
           >
-            <BoxIcon
-              className={`${middle && "boxicon"}
-                      ${!middle && "first-and-last-trash-fix"}
-                      ${active === index && "active"}`}
-              size={changeSmall ? "sm" : "md"}
-              name={item.iconName}
-              color={
-                hovered === index || active === index ? "white" : item.color
-              }
-              animation={active === index && animate ? "tada" : ""}
-              rotate={item.rotate}
-            />
-
-            <NavLink
-              to={item.route || "#"}
-              onClick={(e) => !item.route && e.preventDefault()}
+            <div
+              className={`boxicon-container ${
+                expanded && "expanded-boxicon-container"
+              }`}
+              onMouseEnter={() => {
+                if (middle) {
+                  setHovered(index);
+                }
+              }}
+              onMouseLeave={() => {
+                if (middle) {
+                  setHovered(null);
+                }
+              }}
+              onClick={() => {
+                if (middle) {
+                  setActive(index);
+                }
+                if (index === 0) {
+                  setExpanded(!expanded);
+                }
+              }}
+              key={index}
             >
+              <BoxIcon
+                onClick={() => {
+                  if (middle) {
+                    setActive(index);
+                  }
+                  if (index === 0) {
+                    setExpanded(!expanded);
+                  }
+                }}
+                className={`${middle && "boxicon"} ${
+                  !middle && "first-and-last-trash-fix"
+                } ${active === index && "active"}`}
+                size={changeSmall ? "sm" : "md"}
+                name={item.iconName}
+                color={
+                  hovered === index || active === index ? "white" : item.color
+                }
+                animation={active === index && animate ? "tada" : ""}
+                rotate={item.rotate}
+              />
+        
               <p
                 className={`description ${expanded && "show-description"} ${
                   active === index && "active-description"
@@ -173,9 +181,10 @@ const Sidebar: React.FC = () => {
               >
                 {item.name}
               </p>
-            </NavLink>
-          </div>
+            </div>
+          </NavLink>
         );
+        
       })}
     </div>
   );

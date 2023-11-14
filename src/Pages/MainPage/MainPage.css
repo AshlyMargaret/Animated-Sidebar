@@ -3,3 +3,7 @@
     height: 100vh;
     display: flex;
 }
+.pages{
+    width: calc(100% - 80px);
+    background-color: cadetblue;
+}

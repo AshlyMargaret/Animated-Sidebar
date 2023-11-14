@@ -9,6 +9,7 @@ interface BoxIconProps {
   animation?: string;
   rotate?: string;
   isSelected?: boolean;
+  onClick?: () => void;
 }
 
 const BoxIcon: React.FC<BoxIconProps> = ({
@@ -19,9 +20,10 @@ const BoxIcon: React.FC<BoxIconProps> = ({
   animation,
   rotate,
   isSelected = false,
+  onClick, // Use the destructured name 'onClick' here
 }) => {
   return (
-    <div className={className}>
+    <div className={className} onClick={onClick}> {/* Use 'onClick' here */}
       {React.cloneElement(name, {
         className: `${name.props.className} ${isSelected ? "selected" : ""}`,
         style: { color: isSelected ? "white" : color },
