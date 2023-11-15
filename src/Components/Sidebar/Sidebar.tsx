@@ -58,6 +58,20 @@ const Sidebar: React.FC = () => {
       iconName: <MdExplore />,
       type: "solid",
       route: "/explore",
+      submenu: [
+        {
+          name: "explore_1",
+          iconName: <AiFillCodepenCircle />,
+          type: "solid",
+          route: "/explore/explore_1",
+        },
+        {
+          name: "explore_2",
+          iconName: <AiFillCompass />,
+          type: "solid",
+          route: "/explore/explore_2",
+        },
+      ],
     },
     {
       name: "Messages",
@@ -75,13 +89,13 @@ const Sidebar: React.FC = () => {
           name: "SubItem_1",
           iconName: <AiFillCodepenCircle />,
           type: "solid",
-          route: "/subitem1",
+          route: "/resources/subitem1",
         },
         {
           name: "SubItem_2",
           iconName: <AiFillCompass />,
           type: "solid",
-          route: "/subitem2",
+          route: "/resources/subitem2",
         },
       ],
     },
@@ -111,6 +125,8 @@ const Sidebar: React.FC = () => {
   const [animate, setAnimate] = useState(false);
   const [expanded, setExpanded] = useState(false);
   const changeSmall = useMediaQuery("(max-height: 550px)");
+  const [openedSubMenu, setOpenedSubMenu] = useState<any>(null);
+
   let delay = 1;
 
   useEffect(() => {
@@ -131,7 +147,9 @@ const Sidebar: React.FC = () => {
           <>
             <NavLink
               to={item.route || "#"}
-              onClick={(e) => !item.route && e.preventDefault()}
+              onClick={(e) => !item.route && e.preventDefault()
+                
+              }
             >
               <div
                 className={`boxicon-container ${
@@ -150,6 +168,11 @@ const Sidebar: React.FC = () => {
                 onClick={() => {
                   if (middle) {
                     setActive(index);
+                    if (openedSubMenu === index) {
+                      setOpenedSubMenu(null);
+                    } else {
+                      setOpenedSubMenu(index);
+                    }
                   }
                   if (index === 0) {
                     setExpanded(!expanded);
@@ -189,6 +212,7 @@ const Sidebar: React.FC = () => {
             </NavLink>
 
             {item.submenu &&
+              openedSubMenu === index &&
               item.submenu.map((subitem, subIndex) => (
                 <NavLink
                   to={subitem.route || "#"}
