@@ -12,12 +12,14 @@ import ExploreOne from "../ExploreOne/ExploreOne";
 import ExploreTwo from "../ExploreTwo/ExploreTwo";
 import SubMenuOne from "../SubMenuOne/SubMenuOne";
 import SubMenuTwo from "../SubMenuTwo/SubMenuTwo";
+import NavBar from "../../Components/NavBar/NavBar";
 
 function MainPage() {
   return (
     <div className="mainPage">
       <Sidebar />
       <div className="pages">
+        <NavBar />
         <Routes>
           <Route path="/home" index element={<Home />} />
           <Route>
