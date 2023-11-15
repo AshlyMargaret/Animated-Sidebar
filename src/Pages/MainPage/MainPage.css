@@ -4,6 +4,6 @@
     display: flex;
 }
 .pages{
-    width: calc(100% - 80px);
+    width: calc(100% - 4.2rem);
     background-color: cadetblue;
 }
