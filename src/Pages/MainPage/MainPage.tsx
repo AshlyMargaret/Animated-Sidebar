@@ -20,14 +20,14 @@ function MainPage() {
       <div className="pages">
         <Routes>
           <Route path="/home" index element={<Home />} />
-          <Route path="/explore" >
-            <Route path="explore_1" element={<ExploreOne />} />
-            <Route path="explore_2" element={<ExploreTwo />} />
+          <Route>
+            <Route path="/explore/explore_1" element={<ExploreOne />} />
+            <Route path="/explore/explore_2" element={<ExploreTwo />} />
           </Route>
           <Route path="/messages" element={<Messages />} />
-          <Route path="/resources" >
-            <Route path="subitem1" element={<SubMenuOne />} />
-            <Route path="subitem2" element={<SubMenuTwo />} />
+          <Route>
+            <Route path="/resources/subitem1" element={<SubMenuOne />} />
+            <Route path="resources/subitem2" element={<SubMenuTwo />} />
           </Route>
           <Route path="/starred" element={<Starred />} />
           <Route path="/settings" element={<Settings />} />

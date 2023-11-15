@@ -3,7 +3,7 @@
  
  function SubMenuOne() {
    return (
-     <div>SubMenuOne</div>
+     <div className='subMenuOne'>SubMenuOne</div>
    )
  }
  

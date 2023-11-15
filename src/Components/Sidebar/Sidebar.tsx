@@ -57,7 +57,7 @@ const Sidebar: React.FC = () => {
       name: "Explore",
       iconName: <MdExplore />,
       type: "solid",
-      route: "/explore",
+      // route: "/explore",
       submenu: [
         {
           name: "explore_1",
@@ -83,7 +83,7 @@ const Sidebar: React.FC = () => {
       name: "Resources",
       iconName: <MdNotes />,
       type: "solid",
-      route: "/resources",
+      // route: "/resources",
       submenu: [
         {
           name: "SubItem_1",
